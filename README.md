@@ -22,8 +22,9 @@
     (F) Top ingredients (client side filtering)
 
 5. Interactivity
-    (1) Drop down menu between the charts.
-    (2) Different filters based on alchohol and ingredient. *(Only on certain charts)
+    (a) Drop down menu between the charts.
+    (b) Different filters based on alchohol and ingredient. *(Only on certain charts)
+    (c) Using (https://freefrontend.com/html-menu-with-javascript/) create a menu/dropdown menu between charts.
     
     
 6. Updates
