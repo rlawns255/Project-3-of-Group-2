@@ -8,7 +8,7 @@
            Trey Lumley
 
 2. Date pulled from:
-  API call from DB- https://rapidapi.com/thecoacktaildb/api/the-cocktail-db/
+  API call from DB- https://rapidapi.com/thecocktaildb/api/the-cocktail-db/
   
 3. Planning to use MongoDB for data storage.
  
