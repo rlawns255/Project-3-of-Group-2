@@ -12,18 +12,18 @@
   
 3. Planning to use MongoDB for data storage and using flask powered python code to be able to call for API.
  
-4. Using Leaflet or Plotly chart built from data gathered through the API call; using javascript to create a dashboard page with multiple charts.
+4. Using Plotly chart built from data gathered through the API call; using javascript to create a dashboard page with multiple charts.
  
-    (1) Top 10 drinks
-    (2) Top 10 categories
-    (3) Top 5 alchohol types used
-    (4) Top 3 glasses used
-    (5) Newest Cocktails
-    (6) Top ingredients
+    (A) Top 10 drinks
+    (B) Top 10 categories
+    (C) Top 5 alchohol types used
+    (D) Top 3 glasses used (client side filter)
+    (E) Newest Cocktails (client side filtering)
+    (F) Top ingredients (client side filtering)
 
 5. Interactivity
     (1) Drop down menu between the charts.
-    (2) Different filters based on alchohol and ingredient.
+    (2) Different filters based on alchohol and ingredient. *(Only on certain charts)
     
     
 6. Updates
