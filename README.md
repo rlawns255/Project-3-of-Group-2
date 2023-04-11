@@ -1,6 +1,6 @@
 # Project-3-of-Group-2
 
-1. Topic selected: Cocktails
+1. Topic selected: Cocktails;
   Members: Patrick Bacza
            Hays Kronke
            June Kimm
