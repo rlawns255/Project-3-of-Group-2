@@ -10,7 +10,7 @@
 2. Date pulled from:
   API call from DB- https://rapidapi.com/thecocktaildb/api/the-cocktail-db/
   
-3. Planning to use MongoDB for data storage.
+3. Planning to use MongoDB for data storage and using flask powered python code to be able to call for API.
  
 4. Using Leaflet or Plotly chart built from data gathered through the API call; using javascript to create a dashboard page with multiple charts.
  
