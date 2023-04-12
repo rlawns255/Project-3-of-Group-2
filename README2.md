@@ -10,7 +10,7 @@
 2. Date pulled from:
  DB- https://www.kaggle.com/datasets/dgoenrique/apple-tv-movies-and-tv-shows?resource=download
   
-3. Planning to use MongoDB for data storage and using flask powered python code to be able to call for API.
+3. Planning to use SQL for data storage and using flask powered python code to be able to call for API.
  
 4. Using Plotly chart built from data gathered through the API call; using javascript to create a dashboard page with multiple charts.
  
