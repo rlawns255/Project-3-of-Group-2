@@ -29,5 +29,6 @@ CREATE TABLE "credits" (
 
 ALTER TABLE credits
 ADD CONSTRAINT titles_fk FOREIGN KEY(id) REFERENCES titles(id)
-	
-	
+
+SELECT * FROM credits;
+SELECT * FROM titles;
