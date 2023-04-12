@@ -1,6 +1,6 @@
 # Project-3-of-Group-2
 
-1. Topic selected: Show/movie DB for Apple TV as of Mar 2023
+1. Topic selected: Show/movie DB for Apple TV as of Mar 2023 (over 171 shows)
   Members: Patrick Bacza
            Hays Kronke
            June Kimm
@@ -8,7 +8,7 @@
            Trey Lumley
 
 2. Date pulled from:
-  API call from DB- https://www.kaggle.com/datasets/dgoenrique/apple-tv-movies-and-tv-shows?resource=download
+ DB- https://www.kaggle.com/datasets/dgoenrique/apple-tv-movies-and-tv-shows?resource=download
   
 3. Planning to use MongoDB for data storage and using flask powered python code to be able to call for API.
  
