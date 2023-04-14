@@ -1,4 +1,4 @@
-Creating a user in postgres
+1. Creating a user in postgres
     This is necessary in order to create the connection to the postgres database via sql alchemy/pyscopg2
     Make sure to give the user a password and keep note of the following: user , password , hostname , port and database name.
     Follow this link to create the user: https://www.enterprisedb.com/postgres-tutorials/how-create-postgresql-database-and-users-using-psql-and-pgadmin
@@ -14,7 +14,7 @@ and I also created a primary key for the credits table as well. You will need to
 ALTER TABLE credits
 ADD COLUMN id AS serial PRIMARY KEY 
 
-Creating config file (optional)
+2. Creating config file (optional)
 
 This is just a file that houses my postgres credentials so they can't be seen. You can just store yours in variables if you want to.
 
@@ -30,6 +30,8 @@ password = password
 port = 5432
 
 I added a .gitignore file to the repo so your config file will not sync to it. 
+
+Message me if you have any questions!
 
 
 
