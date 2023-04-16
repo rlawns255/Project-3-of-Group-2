@@ -12,7 +12,7 @@ RENAME id TO title_id
 and I also created a primary key for the credits table as well. You will need to do this in order to make the connection. 
 
 ALTER TABLE credits
-ADD COLUMN id AS serial PRIMARY KEY 
+ADD  unique_id  serial PRIMARY KEY 
 
 2. Creating config file (optional)
 
