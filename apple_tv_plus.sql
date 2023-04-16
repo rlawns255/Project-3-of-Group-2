@@ -20,7 +20,6 @@ CREATE TABLE "titles" (
 );
 
 CREATE TABLE "credits" (
-	"unique_id" SERIAL PRIMARY KEY,
 	"person_id" int,
 	"id" varchar, 
 	"name" varchar,

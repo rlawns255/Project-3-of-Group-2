@@ -65,26 +65,28 @@ def actors():
     actors = set([row[3] for row in results])
     
     actors_list = []
+
     for actor in actors:
-        dict = {}
-        dict['name'] = actor
-        movies = {}
+        actors = {}
+        actors['actor'] = actor
         movie_titles = []
+        release_year = []
+        characters = []
+        imdb_scores = []
         for row in results:
             if row[3] == actor:
                 movie_titles.append(row[0])
+                release_year.append(row[1])
+                characters.append(row[4])
+                imdb_scores.append(row[2])
 
-        dict['movies'] = movie_titles
+
+        actors['movies'] = movie_titles 
+        actors['release_year'] = release_year
+        actors['characters'] = characters
+        actors['imdb_scores'] = imdb_scores
         
-        
-        actors_list.append(dict)
-
-
-        
-
-
-
-
+        actors_list.append(actors)
 
     return jsonify(actors_list)
 
