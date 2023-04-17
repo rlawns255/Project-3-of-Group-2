@@ -47,6 +47,8 @@ def welcome():
         f"Welcome to the Climate API! The available routes are:<br/>"
         f" <br/>"
         f"/api/v1.0/actors<br/>"
+        f"<br/>"
+        f"/api/v1.0/titles"
     )
 
 # Create route to actors table
@@ -69,19 +71,19 @@ def actors():
     for actor in actors:
         actors = {}
         actors['actor'] = actor
-        movie_titles = []
+        movies_shows = []
         release_year = []
         characters = []
         imdb_scores = []
         for row in results:
             if row[3] == actor:
-                movie_titles.append(row[0])
+                movies_shows.append(row[0])
                 release_year.append(row[1])
                 characters.append(row[4])
                 imdb_scores.append(row[2])
 
 
-        actors['movies'] = movie_titles 
+        actors['titles'] = movies_shows 
         actors['release_year'] = release_year
         actors['characters'] = characters
         actors['imdb_scores'] = imdb_scores
@@ -89,6 +91,50 @@ def actors():
         actors_list.append(actors)
 
     return jsonify(actors_list)
+
+@app.route("/api/v1.0/titles")
+
+def movies_shows():
+
+    session = Session(engine)
+
+    results = session.query(titles.title , titles.release_year , titles.imdb_score , credits.name , credits.character ,titles.age_certification , titles.description)\
+        .filter(titles.id == credits.title_id).all()
+        
+
+    session.close()
+
+    movies_shows = set([row[0] for row in results])
+
+    movies_shows_list = []
+
+    for name in movies_shows:
+        productions = {}
+        productions['title'] = name
+        actors = []
+        release_year = set()
+        rating = set()
+        imdb_score = set()
+        description = set()
+        for row in results:
+            if row[0] == name:
+                actors.append(row[3])
+                release_year.add(row[1])
+                rating.add(row[5])
+                imdb_score.add(row[2])
+                description.add(row[6])
+
+
+
+        
+        productions['release_year'] = list(release_year)[0]
+        productions['rating'] = list(rating)[0]
+        productions['imdb_score'] = list(imdb_score)[0]
+        productions['cast'] = actors
+        productions['description'] = list(description)[0]
+        movies_shows_list.append(productions)
+
+    return jsonify(movies_shows_list)
 
 
 if __name__ == '__main__':
