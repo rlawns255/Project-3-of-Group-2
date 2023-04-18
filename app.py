@@ -46,7 +46,7 @@ app.config['JSON_SORT_KEYS'] = False
 def welcome():
     "List of available routes"
     return(
-        f"Welcome to the Climate API! The available routes are:<br/>"
+        f"Welcome to the Apple TV+ API! The available routes are:<br/>"
         f" <br/>"
         f"/api/v1.0/actors<br/>"
         f"<br/>"
