@@ -142,8 +142,7 @@ def age_certification():
 
     results = session.query(titles.age_certification,
                             func.count(titles.age_certification),
-                            titles.imdb_score).filter(
-                                titles.id == credits.title_id)\
+                            titles.imdb_score)\
                                     .group_by(titles.age_certification).all()
 
     session.close()
