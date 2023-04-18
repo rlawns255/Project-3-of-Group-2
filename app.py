@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from collections import OrderedDict
 from flask import Flask, jsonify
+from flask_cors import CORS
 import datetime as dt
 import configparser
 
@@ -37,6 +38,7 @@ credits = Base.classes.credits
 
 # Flask Setup
 app = Flask(__name__)
+CORS(app)
 #Prevent flask from sorting  dictionary keys alphabetically
 app.config['JSON_SORT_KEYS'] = False
 
@@ -49,25 +51,31 @@ def welcome():
         f"/api/v1.0/actors<br/>"
         f"<br/>"
         f"/api/v1.0/titles"
+        f"<br/>"
+        f"/api/v1.0/genres"
     )
-
+    
 # Create route to actors table
+#################################################
 @app.route("/api/v1.0/actors")
-
+#################################################
 def actors():
     session = Session(engine)
 
+    #query the actors table
     results = session.query(titles.title , titles.release_year , titles.imdb_score , credits.name , credits.character)\
        .filter(titles.id == credits.title_id).all()
     
+    # Close the session
     session.close()
 
-   
-
+    # Create a set of actors
     actors = set([row[3] for row in results])
     
+    # Create a list of actors
     actors_list = []
 
+    #loop through the actors and append them to the list
     for actor in actors:
         actors = {}
         actors['actor'] = actor
@@ -82,32 +90,38 @@ def actors():
                 characters.append(row[4])
                 imdb_scores.append(row[2])
 
-
+        #append the actors to the list
         actors['titles'] = movies_shows 
         actors['release_year'] = release_year
         actors['characters'] = characters
         actors['imdb_scores'] = imdb_scores
-        
         actors_list.append(actors)
 
     return jsonify(actors_list)
 
+#create a route to titles table
+#################################################
 @app.route("/api/v1.0/titles")
-
+#################################################
 def movies_shows():
 
+    # Create a session
     session = Session(engine)
 
+    # Query all the movies and shows
     results = session.query(titles.title , titles.release_year , titles.imdb_score , credits.name , credits.character ,titles.age_certification , titles.description)\
         .filter(titles.id == credits.title_id).all()
         
-
+    # Close the session
     session.close()
 
+    # Create a set of movies and shows
     movies_shows = set([row[0] for row in results])
 
+    # Create a list of movies and shows
     movies_shows_list = []
 
+    #loop through the movies and shows
     for name in movies_shows:
         productions = {}
         productions['title'] = name
@@ -126,7 +140,7 @@ def movies_shows():
 
 
 
-        
+        #append the movies and shows to the list
         productions['release_year'] = list(release_year)[0]
         productions['rating'] = list(rating)[0]
         productions['imdb_score'] = list(imdb_score)[0]
@@ -136,6 +150,51 @@ def movies_shows():
 
     return jsonify(movies_shows_list)
 
+#Create a route to genres table
+#################################################
+@app.route("/api/v1.0/genres")
+#################################################
+def genres():
+    session = Session(engine)
+    
+    # Query all the genres
+    results = session.query(titles.title , titles.genres , titles.release_year , titles.imdb_score , credits.name , credits.character)\
+        .filter(titles.id == credits.title_id).all()
+        
+    session.close()
+    
+    genres = set([row[1] for row in results])
+    
+    genres_list = []
+    
+    #loop through the genres and append them to the list  
+    for genre in genres:
+        genres = {}
+        genres['genre'] = genre
+        movies_shows = []
+        actors = []
+        release_year = []
+        imdb_scores = []
+        for row in results:
+            if row[1] == genre:
+                movies_shows.append(row[0])
+                actors.append(row[4])
+                release_year.append(row[2])
+                imdb_scores.append(row[3])
+                
+        genres['titles'] = movies_shows
+        genres['actors'] = actors
+        genres['release_year'] = release_year
+        genres['imdb_scores'] = imdb_scores
+        genres_list.append(genres)
+        
+    return jsonify(genres_list)
+#################################################
 
+
+
+#################################################
+################### Run the app #################    
+#################################################
 if __name__ == '__main__':
     app.run(debug=True)
