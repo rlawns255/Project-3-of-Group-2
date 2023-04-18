@@ -44,11 +44,13 @@ app.config['JSON_SORT_KEYS'] = False
 def welcome():
     "List of available routes"
     return(
-        f"Welcome to the Climate API! The available routes are:<br/>"
+        f"Welcome to the Apple TV Database! The available routes are:<br/>"
         f" <br/>"
         f"/api/v1.0/actors<br/>"
         f"<br/>"
-        f"/api/v1.0/titles"
+        f"/api/v1.0/titles<br/>"
+        f"<br/>"
+        f"/api/v1.0/age-certification<br/>"
     )
 
 # Create route to actors table
@@ -134,39 +136,46 @@ def movies_shows():
     return jsonify(movies_shows_list)
 
 ##############################################################################
+
 # Create Age Certification route
 @app.route("/api/v1.0/age-certification")
 
-def age_certification():
+def age_cert():
     session = Session(engine)
 
-    results = session.query(titles.age_certification,
-                            func.count(titles.age_certification),
-                            titles.imdb_score)\
-                                    .group_by(titles.age_certification).all()
+    results = session.query(titles.title,
+                            titles.release_year,
+                            titles.imdb_score,
+                            titles.age_certification,
+                            titles.description)
 
     session.close()
 
-    age_certification = set([row[0] for row in results])
+    age_cert = set([row[3] for row in results])
 
     age_cert_list = []
 
-    for loop in age_certification:
+    for age in age_cert:
         age_dictionary = {}
-        age_dictionary['age_certification'] = loop
-        age_list = []
-        age_count_list = []
-        imdb_list = []
-        age_dictionary['imdb_score'] = imdb_list
+        age_dictionary['age_certification'] = age
+        age_title = []
+        age_release_year = []
+        age_imdb_score = []
+        age_description = []
         for row in results:
-            if row[0] == loop:
-                age_list.append(row[1])
-                age_count_list.append(row[2])
-                imdb_list.append(row[3])
+            if row[3] == age:
+                age_title.append(row[0])
+                age_release_year.append(row[1])
+                age_imdb_score.append(row[2])
+                age_description.append(row[4])
 
-        avg_imdb_score = np.mean(imdb_list)
-        imdb_list.append(avg_imdb_score)
+        age_dictionary['titles'] = age_title
+        age_dictionary['release_year'] = age_release_year
+        age_dictionary['imdb_score'] = age_imdb_score
+        age_dictionary['description'] = age_description
         age_cert_list.append(age_dictionary)
+
+    return jsonify(age_cert_list)
 
 ##############################################################################
 
