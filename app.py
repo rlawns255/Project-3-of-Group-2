@@ -8,7 +8,7 @@ from collections import OrderedDict
 from flask import Flask, jsonify
 import datetime as dt
 import configparser
-
+from flask_cors import CORS
 # Add in postgres credentials
 parser = configparser.ConfigParser()
 parser.read("credentials.conf")
@@ -39,12 +39,13 @@ credits = Base.classes.credits
 app = Flask(__name__)
 #Prevent flask from sorting  dictionary keys alphabetically
 app.config['JSON_SORT_KEYS'] = False
+CORS(app)
 
 @app.route("/")
 def welcome():
     "List of available routes"
     return(
-        f"Welcome to the Climate API! The available routes are:<br/>"
+        f"Welcome to the apple_tv API! The available routes are:<br/>"
         f" <br/>"
         f"/api/v1.0/actors<br/>"
         f"<br/>"
@@ -64,10 +65,12 @@ def actors():
 
    
 
-    actors = set([row[3] for row in results])
-    
     actors_list = []
 
+    actors = set([row[3] for row in results])
+    actor_data = {}
+    actor_data['names'] = list(actors)
+    metadata = []
     for actor in actors:
         actors = {}
         actors['actor'] = actor
@@ -88,9 +91,10 @@ def actors():
         actors['characters'] = characters
         actors['imdb_scores'] = imdb_scores
         
-        actors_list.append(actors)
+        metadata.append(actors)
+    actor_data['metadata'] = metadata
 
-    return jsonify(actors_list)
+    return jsonify(actor_data)
 
 @app.route("/api/v1.0/titles")
 
