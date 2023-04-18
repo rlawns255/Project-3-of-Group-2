@@ -59,13 +59,13 @@ def actors():
 
     results = session.query(titles.title , titles.release_year , titles.imdb_score , credits.name , credits.character)\
        .filter(titles.id == credits.title_id).all()
-    
+
     session.close()
 
-   
+
 
     actors = set([row[3] for row in results])
-    
+
     actors_list = []
 
     for actor in actors:
@@ -92,15 +92,15 @@ def actors():
 
     return jsonify(actors_list)
 
+# Create route to title table
 @app.route("/api/v1.0/titles")
 
 def movies_shows():
 
     session = Session(engine)
-
+    
     results = session.query(titles.title , titles.release_year , titles.imdb_score , credits.name , credits.character ,titles.age_certification , titles.description)\
         .filter(titles.id == credits.title_id).all()
-        
 
     session.close()
 
@@ -124,9 +124,6 @@ def movies_shows():
                 imdb_score.add(row[2])
                 description.add(row[6])
 
-
-
-        
         productions['release_year'] = list(release_year)[0]
         productions['rating'] = list(rating)[0]
         productions['imdb_score'] = list(imdb_score)[0]
@@ -136,6 +133,45 @@ def movies_shows():
 
     return jsonify(movies_shows_list)
 
+##############################################################################
+# Create Age Certification route
+@app.route("/api/v1.0/age-certification")
 
+def age_certification():
+    session = Session(engine)
+
+    results = session.query(titles.age_certification,
+                            func.count(titles.age_certification),
+                            titles.imdb_score).filter(
+                                titles.id == credits.title_id)\
+                                    .group_by(titles.age_certification).all()
+
+    session.close()
+
+    age_certification = set([row[0] for row in results])
+
+    age_cert_list = []
+
+    for loop in age_certification:
+        age_dictionary = {}
+        age_dictionary['age_certification'] = loop
+        age_list = []
+        age_count_list = []
+        imdb_list = []
+        age_dictionary['imdb_score'] = imdb_list
+        for row in results:
+            if row[0] == loop:
+                age_list.append(row[1])
+                age_count_list.append(row[2])
+                imdb_list.append(row[3])
+
+        avg_imdb_score = np.mean(imdb_list)
+        imdb_list.append(avg_imdb_score)
+        age_cert_list.append(age_dictionary)
+
+##############################################################################
+
+# The end of the app
 if __name__ == '__main__':
     app.run(debug=True)
+
