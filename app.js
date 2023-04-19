@@ -36,7 +36,11 @@ function buildBarChart() {
             xaxis: { title: "Genre" },
             yaxis: { title: "Count" }
         };
-
+        
+        // Call plotly
+        Plotly.newPlot("bar", [trace], layout);
+    });
+}
 // Function that updates the dashboard when the sample is changed
 function optionChanged(newSample) {
 
