@@ -47,12 +47,14 @@ def welcome():
     "List of available routes"
     return(
         f"Welcome to the Apple TV+ API! The available routes are:<br/>"
-        f" <br/>"
+        f"<br/>"
         f"/api/v1.0/actors<br/>"
         f"<br/>"
-        f"/api/v1.0/titles"
+        f"/api/v1.0/titles<br/>"
         f"<br/>"
-        f"/api/v1.0/genres"
+        f"/api/v1.0/age-certification<br/>"
+        f"<br/>"
+        f"/api/v1.0/genres<br/>"
     )
     
 # Create route to actors table
@@ -137,8 +139,6 @@ def movies_shows():
                 rating.add(row[5])
                 imdb_score.add(row[2])
                 description.add(row[6])
-
-
 
         #append the movies and shows to the list
         productions['release_year'] = list(release_year)[0]
