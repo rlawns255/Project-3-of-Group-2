@@ -226,10 +226,10 @@ def genres():
                 release_year.append(row[2])
                 imdb_scores.append(row[3])
                 
-        genres['titles'] = genres_titles
-        genres['actors'] = genres_actors
-        genres['release_year'] = genres_release_year
-        genres['imdb_scores'] = genres_imdb_scores
+        genres['titles'] = movies_shows
+        genres['actors'] = actors
+        genres['release_year'] = release_year
+        genres['imdb_scores'] = imdb_scores
         genres_list.append(genres)
         
     return jsonify(genres_list)
