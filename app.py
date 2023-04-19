@@ -217,7 +217,7 @@ def genres():
 
     session.close()
 
-    genres = set([row[1] for row in results])
+    genres = set([row[0] for row in results])
 
     genres_list = []
 
@@ -227,8 +227,8 @@ def genres():
         genres['genre'] = genre
         imdb_scores = []
         for row in results:
-            if row[1] == genre:
-                imdb_scores.append(row[3])
+            if row[0] == genre:
+                imdb_scores.append(row[1])
 
 
         genres['imdb_scores'] = imdb_scores
