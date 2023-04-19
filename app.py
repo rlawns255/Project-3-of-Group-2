@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 # import datetime as dt
 # import numpy as np
 # import sqlalchemy
-# from sqlalchemy import func
+from sqlalchemy import func
 
 # Add in postgres credentials
 parser = configparser.ConfigParser()
@@ -210,13 +210,10 @@ def genres():
     session = Session(engine)
 
     # Query all the genres
-    results = session.query(titles.title,
-                            titles.genres,
-                            titles.release_year,
-                            titles.imdb_score,
-                            credits.name,
-                            credits.character).filter(
-                                titles.id == credits.title_id).all()
+    results = session.query(titles.genres,
+                            func.avg(titles.imdb_score),
+                            func.max(titles.imdb_score)
+                            ).filter(titles.id == credits.title_id).group_by(titles.genres).all()
 
     session.close()
 
@@ -228,20 +225,12 @@ def genres():
     for genre in genres:
         genres = {}
         genres['genre'] = genre
-        movies_shows = []
-        actors = []
-        release_year = []
         imdb_scores = []
         for row in results:
             if row[1] == genre:
-                movies_shows.append(row[0])
-                actors.append(row[4])
-                release_year.append(row[2])
                 imdb_scores.append(row[3])
 
-        genres['titles'] = movies_shows
-        genres['actors'] = actors
-        genres['release_year'] = release_year
+
         genres['imdb_scores'] = imdb_scores
         genres_list.append(genres)
 
