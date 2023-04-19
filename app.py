@@ -9,6 +9,7 @@ from flask import Flask, jsonify
 import datetime as dt
 import configparser
 from flask_cors import CORS
+
 # Add in postgres credentials
 parser = configparser.ConfigParser()
 parser.read("credentials.conf")
@@ -110,7 +111,10 @@ def movies_shows():
 
     movies_shows = set([row[0] for row in results])
 
-    movies_shows_list = []
+    titles_data = {}
+    titles_data['titles'] = list(movies_shows)
+
+    movies_shows_data = []
 
     for name in movies_shows:
         productions = {}
@@ -136,9 +140,10 @@ def movies_shows():
         productions['imdb_score'] = list(imdb_score)[0]
         productions['cast'] = actors
         productions['description'] = list(description)[0]
-        movies_shows_list.append(productions)
+        movies_shows_data.append(productions)
+        titles_data['metadata'] = movies_shows_data
 
-    return jsonify(movies_shows_list)
+    return jsonify(titles_data)
 
 
 if __name__ == '__main__':

@@ -14,14 +14,15 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+        <h1>Apple TV Movies and Shows</h1>
+        <h4>Group 2: Patrick Bacza , Garrett Bradley , Hayes Kronke , June Kimm , Trey Lumley</h4>
+        <p></p>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <div class="well">
-          <h5>Test Subject ID No.:</h5>
+          <h5>Actor Names.:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="panel panel-primary">
@@ -35,7 +36,16 @@
         <div id="bar"></div>
       </div>
       <div class="col-md-4">
-        <div id="gauge"></div>
+        <div id="well">
+          <h5>Movies and TV Shows</h5>
+          <select id="selTitle" onchange="movieChanged(this.value)"></select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Titles</h3>
+          </div>
+          <div id="title-metadata" class="panel-body"></div>
+        </div>
       </div>
     </div>
     <div class="row">
