@@ -3,12 +3,14 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
-# from collections import OrderedDict
-# import datetime as dt
-# import numpy as np
-# import sqlalchemy
-from sqlalchemy import func
+
+from sqlalchemy import create_engine, func
+from collections import OrderedDict
+from flask import Flask, jsonify
+import datetime as dt
+import configparser
+from flask_cors import CORS
+
 
 # Add in postgres credentials
 parser = configparser.ConfigParser()
@@ -38,6 +40,7 @@ CORS(app)
 
 # Prevent flask from sorting  dictionary keys alphabetically
 app.config['JSON_SORT_KEYS'] = False
+CORS(app)
 
 # Design app routes
 
@@ -45,10 +48,14 @@ app.config['JSON_SORT_KEYS'] = False
 @app.route("/")
 def welcome():
 
-    "List of available routes"
+    return(
+        f"Welcome to the apple_tv API! The available routes are:<br/>"
+        f" <br/>"
+
     return (
         f"{'Welcome to the Apple TV+ API! The available routes are:<br/>'}"
         f"<br/>"
+
         f"/api/v1.0/actors<br/>"
         f"<br/>"
         f"/api/v1.0/titles<br/>"
@@ -76,13 +83,14 @@ def actors():
     # Close the session
     session.close()
 
-    # Create a set of actors
-    actors = set([row[3] for row in results])
 
-    # Create a list of actors
     actors_list = []
 
-    # Loop through the actors and append them to the list
+    actors = set([row[3] for row in results])
+    actor_data = {}
+    actor_data['names'] = list(actors)
+    metadata = []
+
     for actor in actors:
         actors = {}
         actors['actor'] = actor
@@ -102,9 +110,13 @@ def actors():
         actors['release_year'] = release_year
         actors['characters'] = characters
         actors['imdb_scores'] = imdb_scores
-        actors_list.append(actors)
 
-    return jsonify(actors_list)
+        
+        metadata.append(actors)
+    actor_data['metadata'] = metadata
+
+
+    return jsonify(actor_data)
 
 # Create a route to titles table
 
@@ -131,8 +143,12 @@ def movies_shows():
     # Create a set of movies and shows
     movies_shows = set([row[0] for row in results])
 
-    # Create a list of movies and shows
-    movies_shows_list = []
+
+    titles_data = {}
+    titles_data['titles'] = list(movies_shows)
+
+    movies_shows_data = []
+
 
     # Loop through the movies and shows
     for name in movies_shows:
@@ -157,9 +173,10 @@ def movies_shows():
         productions['imdb_score'] = list(imdb_score)[0]
         productions['cast'] = actors
         productions['description'] = list(description)[0]
-        movies_shows_list.append(productions)
+        movies_shows_data.append(productions)
+        titles_data['metadata'] = movies_shows_data
 
-    return jsonify(movies_shows_list)
+    return jsonify(titles_data)
 
 # Create Age Certification route
 
