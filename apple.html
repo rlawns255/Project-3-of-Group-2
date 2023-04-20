@@ -8,13 +8,17 @@
     <link rel="stylesheet" href="Styles.css">
 </head>
 <body>
+    <div class="wrapper">
+                <h1>Apple TV</h1>
+                <img class="images-Ted Lasso" src="images/ted lasso.jpg" alt="Apple TV">
+                <!--div class= "images-pic1"></div>-->
     <nav class="navbar">
         <div class="nabar__container">
-            <a href="/" id="nav__logo">Apple TV</a>
+            <a href="/" id="nav__logo"></a>
             <div class="navbar__toggle" id="apple-menu">
                 <span class="bar"></span><span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            <!--/div>
             <ul class="navbar__menu">
                 <li class="navbar__item">
                     <a href="/" class="navbar__links"> Home</a>
@@ -22,8 +26,93 @@
                 <li class="navbar__search">
                     <a href="Search" class="button">Search</a>
                 </li>
-            </ul>
+            </ul>-->
+            
+
+                </div>
+                <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Apple TV</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>Apple TV Movies and Shows</h1>
+        <h4>Group 2: Patrick Bacza , Garrett Bradley , Hayes Kronke , June Kimm , Trey Lumley</h4>
+        <p></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="well">
+          <h5>Actor Names.:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Actors</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="bar"></div>
+      </div>
+      <div class="col-md-4">
+        <div id="well">
+          <h5>Movies and TV Shows</h5>
+          <select id="selTitle" onchange="movieChanged(this.value)"></select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Titles</h3>
+          </div>
+          <div id="title-metadata" class="panel-body"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bubble"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./static/app.js"></script>
+
+  
+</body>
+
+</html>
+
+
+<body>
+
+        <div id="myPie" class="Pie"></div>
+        <br>
+        <div id="myPie2" class="Pie2"></div>
+        
+        <script src="pie.js"></script>
+        
+
+    </nav>
+</body>
+    <!--div id = "myPie" class="Pie"></div>-->
+</html>
+            </div>
         </div>
     </nav>
 </body>
 </html>
+
